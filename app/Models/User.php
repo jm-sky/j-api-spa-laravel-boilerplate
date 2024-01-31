@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use Laravel\Sanctum\HasApiTokens;
-
-use Illuminate\Support\Collection;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Sanctum\PersonalAccessToken;
 
 /**
  * @property string $id
@@ -19,6 +18,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Carbon $email_verified_at
  * @property string $password
  * @property string $remember_token
+ * @property string $provider
+ * @property string $provider_id
+ * @property string $provider_token
+ * @property string $provider_refresh_token
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Collection<PersonalAccessToken> $tokens

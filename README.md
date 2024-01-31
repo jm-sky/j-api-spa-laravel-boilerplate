@@ -6,6 +6,11 @@ Laravel is a web application framework with expressive, elegant syntax.
 
 This repo was made with `curl -s "https://laravel.build/example-app?with=mysql,redis,mailpit" | bash` command from [Laravel Docs](https://laravel.com/docs/10.x#getting-started-on-windows)
 
+## Commands
+- `composer cs` - lint PHP code style with Pint
+- `composer csf` - fix PHP code style with Pint 
+- `composer stan` - analyze PHP code with PHPStan
+
 
 ## Packages
 
@@ -32,7 +37,7 @@ This repo was made with `curl -s "https://laravel.build/example-app?with=mysql,r
 
 ### Service integrations
 - [ ] [laravel/cashier](https://laravel.com/docs/10.x/billing) - <img src="https://img.shields.io/github/stars/laravel/cashier?style=flat"> - Provides an expressive, fluent interface to Stripe's subscription billing services.
-- [ ] [laravel/socialite](https://laravel.com/docs/10.x/socialite) - <img src="https://img.shields.io/github/stars/laravel/socialite?style=flat"> - Provides a simple, convenient way to authenticate with OAuth providers using Laravel Socialite (supports authentication via Facebook, Twitter, LinkedIn, Google, GitHub, GitLab, Bitbucket, and Slack).
+- [x] [laravel/socialite](https://laravel.com/docs/10.x/socialite) - <img src="https://img.shields.io/github/stars/laravel/socialite?style=flat"> - Provides a simple, convenient way to authenticate with OAuth providers using Laravel Socialite (supports authentication via Facebook, Twitter, LinkedIn, Google, GitHub, GitLab, Bitbucket, and Slack).
 - [ ] [prgayman/laravel-sms](https://github.com/prgayman/laravel-sms) <img src="https://img.shields.io/github/stars/prgayman/laravel-sms?style=flat"> - Laravel SMS allows you to send SMS from your Laravel application using multiple sms providers, allow to add custom sms provider
 - [ ] [propaganistas/laravel-phone](https://github.com/Propaganistas/Laravel-Phone) - <img src="https://img.shields.io/github/stars/Propaganistas/Laravel-Phone?style=flat">
 
