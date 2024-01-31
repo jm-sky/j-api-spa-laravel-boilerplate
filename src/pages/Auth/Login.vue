@@ -1,29 +1,26 @@
 <script setup lang="ts">
-import Checkbox from '@/Components/Checkbox.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import Checkbox from '@/components/Checkbox.vue';
+import GuestLayout from '@/layouts/GuestLayout.vue';
+import InputError from '@/components/InputError.vue';
+import InputLabel from '@/components/InputLabel.vue';
+import PrimaryButton from '@/components/PrimaryButton.vue';
+import TextInput from '@/components/TextInput.vue';
+import { RouteMap } from '@/router/types/routeMap';
+import { RouterLink } from 'vue-router';
 
 defineProps<{
     canResetPassword?: boolean;
     status?: string;
 }>();
 
-const form = useForm({
-    email: '',
-    password: '',
-    remember: false,
-});
+const form = {
+  email: '',
+  password: '',
+  remember: false,
+  errors: {},
+};
 
 const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => {
-            form.reset('password');
-        },
-    });
 };
 </script>
 
@@ -75,13 +72,13 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link
+                <RouterLink
                     v-if="canResetPassword"
-                    :href="route('password.request')"
+                    :to="RouteMap.PASSWORD_FORGOT"
                     class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Forgot your password?
-                </Link>
+                </RouterLink>
 
                 <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
