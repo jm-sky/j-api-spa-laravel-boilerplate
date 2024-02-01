@@ -1,3 +1,4 @@
+import { DEFAULT_LANGUAGE } from '@/config'
 import axios from 'axios'
 
 const axiosInstance = axios.create({
@@ -6,7 +7,7 @@ const axiosInstance = axios.create({
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
-    'Accept-Language': 'pl',
+    'Accept-Language': DEFAULT_LANGUAGE,
   },
 })
 
