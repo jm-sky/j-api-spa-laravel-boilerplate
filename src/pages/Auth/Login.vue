@@ -7,20 +7,22 @@ import PrimaryButton from '@/components/PrimaryButton.vue';
 import TextInput from '@/components/TextInput.vue';
 import { RouteMap } from '@/router/types/routeMap';
 import { RouterLink } from 'vue-router';
+import { useForm } from '@/helpers/useForm';
 
 defineProps<{
-    canResetPassword?: boolean;
-    status?: string;
+  canResetPassword?: boolean;
+  status?: string;
 }>();
 
-const form = {
+const form = useForm({
   email: '',
   password: '',
   remember: false,
   errors: {},
-};
+});
 
 const submit = () => {
+  form.post(RouteMap.LOGIN);
 };
 </script>
 
