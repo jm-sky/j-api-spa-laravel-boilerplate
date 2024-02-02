@@ -7,16 +7,21 @@ import TextInput from "@/components/TextInput.vue";
 import { useForm } from "@/helpers/useForm";
 import { RouteMap } from "@/router/routeMap";
 import { RouterLink } from "vue-router";
+import router from '@/router';
+import { User } from '@/types/user.type';
+import { useAuthStore } from '@/stores';
 
 const form = useForm({
-  name: "John Doe",
-  email: "john.doe@example.com",
-  password: "password",
-  password_confirmation: "password",
+  name: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
 });
 
-const submit = () => {
-  form.post(RouteMap.API.REGISTER);
+const submit = async () => {
+  const user = await form.post<User>(RouteMap.API.REGISTER);
+  useAuthStore().user = user
+  router.push(RouteMap.HOME)
 };
 </script>
 
@@ -31,7 +36,7 @@ const submit = () => {
           type="text"
           class="mt-1 block w-full"
           v-model="form.name"
-          :error="form.errors.email"
+          :error="form.errors.name"
           required
           autofocus
           autocomplete="name"
@@ -64,7 +69,7 @@ const submit = () => {
           type="password"
           class="mt-1 block w-full"
           v-model="form.password"
-          :error="form.errors.email"
+          :error="form.errors.password"
           required
           autocomplete="new-password"
         />
@@ -80,7 +85,7 @@ const submit = () => {
           type="password"
           class="mt-1 block w-full"
           v-model="form.password_confirmation"
-          :error="form.errors.email"
+          :error="form.errors.password_confirmation"
           required
           autocomplete="new-password"
         />

@@ -47,7 +47,7 @@ const submit = () => {
           id="email"
           type="email"
           class="mt-1 block w-full"
-          :class="{ 'ring-1 ring-red-600' : form.hasError() }"
+          :class="{ 'ring-1 ring-red-600' : form.hasErrors }"
           v-model="form.email"
           required
           autofocus
@@ -64,7 +64,7 @@ const submit = () => {
           id="password"
           type="password"
           class="mt-1 block w-full"
-          :class="{ 'ring-1 ring-red-600' : form.hasError() }"
+          :class="{ 'ring-1 ring-red-600' : form.hasErrors }"
           v-model="form.password"
           required
           autocomplete="current-password"
