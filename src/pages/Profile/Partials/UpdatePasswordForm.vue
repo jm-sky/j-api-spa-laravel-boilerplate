@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { useForm } from '@inertiajs/vue3';
+import InputError from '@/components/InputError.vue';
+import InputLabel from '@/components/InputLabel.vue';
+import PrimaryButton from '@/components/PrimaryButton.vue';
+import TextInput from '@/components/TextInput.vue';
+import { useForm } from '@/helpers/useForm';
 import { ref } from 'vue';
 
 const passwordInput = ref<HTMLInputElement | null>(null);
@@ -17,7 +17,6 @@ const form = useForm({
 
 const updatePassword = () => {
     form.put(route('password.update'), {
-        preserveScroll: true,
         onSuccess: () => {
             form.reset();
         },
@@ -99,7 +98,7 @@ const updatePassword = () => {
                     leave-active-class="transition ease-in-out"
                     leave-to-class="opacity-0"
                 >
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
+                    <p v-if="form.recentlySuccessful()" class="text-sm text-gray-600">Saved.</p>
                 </Transition>
             </div>
         </form>

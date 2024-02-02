@@ -1,5 +1,5 @@
 import { useAuthStore } from '@/stores'
-import { RouteMap } from '@/router/types/routeMap'
+import { RouteMap } from '@/router/routeMap'
 // import { authService } from '@/modules/Auth/services/auth.service'
 
 export default async ({ to, next }: any) => {

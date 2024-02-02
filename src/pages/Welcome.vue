@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouteMap } from '@/router/types/routeMap';
+import { RouteMap } from '@/router/routeMap';
 import { useAuthStore } from '@/stores';
 
 defineProps<{

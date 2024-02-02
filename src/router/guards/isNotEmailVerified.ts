@@ -1,4 +1,4 @@
-import { RouteMap } from '@/router/types/routeMap'
+import { RouteMap } from '@/router/routeMap'
 import { useAuthStore } from '@/stores'
 
 export default ({ next }: any) => {

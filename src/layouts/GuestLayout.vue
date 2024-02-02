@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ApplicationLogo from '@/components/ApplicationLogo.vue';
-import { RouteMap } from '@/router/types/routeMap';
+import { RouteMap } from '@/router/routeMap';
 import { RouterLink } from 'vue-router';
 </script>
 

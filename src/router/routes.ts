@@ -1,4 +1,4 @@
-import { RouteMap } from '@/router/types/routeMap'
+import { RouteMap } from '@/router/routeMap'
 import isLogged from '@/router/guards/isLogged'
 import isNotGuest from '@/router/guards/isNotGuest'
 import isEmailVerified from '@/router/guards/isEmailVerified'
@@ -29,18 +29,26 @@ const routes: RouteRecordRaw[] = [
       // middlewares: [isNotGuest],
     },
   },
+  {
+    path: RouteMap.LOGOUT,
+    name: 'logout',
+    component: async () => await import('@/pages/Auth/Logout.vue'),
+    meta: {
+      // middlewares: [isNotGuest],
+    },
+  },
+  {
+    path: RouteMap.REGISTER,
+    name: 'register',
+    component: async () => await import('@/pages/Auth/Register.vue'),
+    meta: {
+      // middlewares: [isNotGuest],
+    },
+  },
   // {
   //   path: '/',
   //   children: [
-  //     {
-  //       path: RouteMap.REGISTER,
-  //       name: 'register',
-  //       component: async () => await import('@/pages/Auth/RegisterView.vue'),
-  //       meta: {
-  //         wide: false,
-  //         middlewares: [isNotGuest],
-  //       },
-  //     },
+
   //     {
   //       path: RouteMap.PASSWORD_FORGOT,
   //       name: 'forgot-password',
