@@ -13,6 +13,14 @@ use Illuminate\Support\Stringable;
 
 class BoilCommand extends Command
 {
+    public string $model;
+    public string $modelsNamespace = 'App\\Models\\';
+    public string $modelClassName;
+    protected string $tsIndent = "  ";
+
+    /** @var Collection<BoilColumnDefinition> */
+    protected Collection $columns;
+
     /**
      * The name and signature of the console command.
      *
@@ -54,50 +62,8 @@ class BoilCommand extends Command
 
     public function handleModel()
     {
-        $model = Str::of($this->argument('model'))->studly()->toString();
-        $namespace = 'App\\Models\\';
-
-        $modelClassName = Str::contains($model, "\\") ? $model :"{$namespace}{$model}";
-
-        if (!class_exists($modelClassName)) {
-            $this->error("No model found '{$modelClassName}'");
-            return;
-        }
-
-        $this->info("Boiling '{$model}'");
-        $this->info("- using '{$modelClassName}' model");
-
-        $modelInstance = new $modelClassName;
-        $table = $modelInstance->getTable();
-        $query = $this->getQuery($table);
-
-        /** @var Collection<BoilColumnDefinition> */
-        $columns = collect(DB::select($query));
-        $attrs = $columns->map(function ($column) {
-            /** @var BoilColumnDefinition */
-            $column = $column;
-            $name = Str::of($column->column_name)->camel()->toString();
-            $nullable = $column->is_nullable ? '?' : '';
-            $type = $this->columnDbToTsType($column->data_type);
-
-            $text = "{$name}{$nullable}: $type";
-
-            if ($column->referenced_table_name) {
-                $relation = Str::of($column->column_name)->whenEndsWith('_id', fn (Stringable $string) => $string->before('_id'))->singular()->camel()->toString();
-                $relationClass = Str::of($column->referenced_table_name)->singular()->studly()->toString();
-                $text = "{$text}\n    {$relation}{$nullable}: {$relationClass}";
-            }
-
-            return $text;
-        })->join("\n    ");
-
-        $this->info(<<<CODE
-
-        export interface $model {
-            $attrs
-        }
-        CODE
-        );
+        $this->configureModel();
+        $this->getTsModels();
     }
 
     protected function getQuery(string $table): string
@@ -166,6 +132,29 @@ class BoilCommand extends Command
         throw new Exception("Not supported driver - {$driver}");
     }
 
+    /**
+     * @throws Exception
+     */
+    protected function configureModel(): void
+    {
+        $this->model = Str::of($this->argument('model'))->studly()->toString();
+
+        $this->modelClassName = Str::contains($this->model, "\\") ? $this->model :"{$this->modelsNamespace}{$this->model}";
+
+        if (!class_exists($this->modelClassName)) {
+            throw new Exception("No model found '{$this->modelClassName}'");
+        }
+
+        $this->info("Boiling '{$this->model}'");
+        $this->info("- using '{$this->modelClassName}' model");
+
+        $modelInstance = new $this->modelClassName;
+        $table = $modelInstance->getTable();
+        $query = $this->getQuery($table);
+
+        $this->columns = collect(DB::select($query));
+    }
+
     protected function columnDbToTsType(string $dbType): string
     {
         return match ($dbType) {
@@ -174,6 +163,50 @@ class BoilCommand extends Command
             'big_int', 'int' => 'number',
             default => 'string',
         };
+    }
+
+    protected function getTsModels(): void
+    {
+        $imports = collect([]);
+
+        $attrs = $this->columns->map(function ($column) use (&$imports) {
+            /** @var BoilColumnDefinition */
+            $column = $column;
+            $name = Str::of($column->column_name)->camel()->toString();
+            $nullable = $column->is_nullable ? '?' : '';
+            $type = $this->columnDbToTsType($column->data_type);
+
+            $text = "{$name}{$nullable}: $type";
+
+            if ($column->referenced_table_name) {
+                $relation = Str::of($column->column_name)->whenEndsWith('_id', fn (Stringable $string) => $string->before('_id'))->singular()->camel()->toString();
+                $relationClass = Str::of($column->referenced_table_name)->singular()->studly()->toString();
+                $text = "{$text}\n{$this->tsIndent}{$relation}{$nullable}: {$relationClass}";
+
+                $relationFilename = Str::camel($relationClass);
+                $imports->push("import { $relationClass } from './{$relationFilename}.draft'");
+            }
+
+            return $text;
+        });
+
+        $content = collect([]);
+        if ($imports->count()) $content->push($imports->join("\n"), "");
+        $content->push("export interface {$this->model} {");
+        $content->push($attrs->map(fn ($line) => "{$this->tsIndent}{$line}")->join("\n"));
+        $content->push("}");
+        $content->push("");
+
+        $model = Str::of($this->model)->camel()->toString();
+        $filename = "{$model}.draft.ts";
+        $folder = "src/models";
+        $path = "{$folder}/{$filename}";
+
+        if (!File::isDirectory(base_path($folder))) {
+            File::makeDirectory(base_path($folder));
+        }
+
+        File::put(base_path($path), $content->join("\n"));
     }
 
 }
