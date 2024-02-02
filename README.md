@@ -10,7 +10,7 @@ This repo was made with `curl -s "https://laravel.build/example-app?with=mysql,r
 - `composer cs` - lint PHP code style with Pint
 - `composer csf` - fix PHP code style with Pint 
 - `composer stan` - analyze PHP code with PHPStan
-
+- `php artisan boil:all project` - generate TypeScript models for Project model based on database schema
 
 ## Packages
 

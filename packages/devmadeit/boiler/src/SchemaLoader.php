@@ -13,7 +13,7 @@ class SchemaLoader
     public ModelSchemaCollection $columns;
 
     public function __construct(
-        public string $table,
+        public string $modelClassName,
     )
     {}
 
@@ -28,12 +28,19 @@ class SchemaLoader
         return $columns;
     }
 
+    protected function getTable(): string
+    {
+        $modelInstance = new $this->modelClassName;
+
+        return $modelInstance->getTable();
+    }
+
     /**
      * @throws BoilerException
      */
     protected function getQuery(): string
     {
-        $table = $this->table;
+        $table = $this->getTable();
         $driver = DB::getDriverName();
         $schema = DB::getDatabaseName();
 

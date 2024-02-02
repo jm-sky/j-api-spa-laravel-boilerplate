@@ -18,7 +18,7 @@ class BoilCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'boil {model}';
+    protected $signature = 'boil:all {model}';
 
     /**
      * The console command description.
@@ -35,7 +35,7 @@ class BoilCommand extends Command
     public function handle()
     {
         $this->generator = new Generator($this);
-        $this->generator->initSchema($this->argument('model'));
+        $this->generator->run($this->argument('model'));
     }
 
 
