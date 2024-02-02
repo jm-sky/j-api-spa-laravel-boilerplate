@@ -5,7 +5,7 @@ import Dropdown from '@/components/Dropdown.vue';
 import DropdownLink from '@/components/DropdownLink.vue';
 import NavLink from '@/components/NavLink.vue';
 import ResponsiveNavLink from '@/components/ResponsiveNavLink.vue';
-import { RouteMap } from '@/router/types/routeMap';
+import { RouteMap } from '@/router/routeMap';
 import { RouterLink } from 'vue-router';
 import { useAuthStore } from '@/stores';
 
@@ -29,7 +29,7 @@ const showingNavigationDropdown = ref(false);
 
               <!-- Navigation Links -->
               <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                <NavLink :href="RouteMap.HOME">
+                <NavLink :to="RouteMap.HOME">
                   Dashboard
                 </NavLink>
               </div>
@@ -56,8 +56,8 @@ const showingNavigationDropdown = ref(false);
                   </template>
 
                   <template #content>
-                    <DropdownLink :href="RouteMap.PROFILE_EDIT"> Profile </DropdownLink>
-                    <DropdownLink :href="RouteMap.LOGOUT" method="post" as="button">
+                    <DropdownLink :to="RouteMap.PROFILE_EDIT"> Profile </DropdownLink>
+                    <DropdownLink :to="RouteMap.LOGOUT" method="post" as="button">
                       Log Out
                     </DropdownLink>
                   </template>
@@ -89,7 +89,7 @@ const showingNavigationDropdown = ref(false);
         <!-- Responsive Navigation Menu -->
         <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
           <div class="pt-2 pb-3 space-y-1">
-            <ResponsiveNavLink :href="RouteMap.HOME">
+            <ResponsiveNavLink :to="RouteMap.HOME">
               Dashboard
             </ResponsiveNavLink>
           </div>
@@ -104,8 +104,8 @@ const showingNavigationDropdown = ref(false);
             </div>
 
             <div class="mt-3 space-y-1">
-              <ResponsiveNavLink :href="RouteMap.PROFILE_EDIT"> Profile </ResponsiveNavLink>
-              <ResponsiveNavLink :href="RouteMap.LOGOUT" method="post" as="button">
+              <ResponsiveNavLink :to="RouteMap.PROFILE_EDIT"> Profile </ResponsiveNavLink>
+              <ResponsiveNavLink :to="RouteMap.LOGOUT" method="post" as="button">
                 Log Out
               </ResponsiveNavLink>
             </div>

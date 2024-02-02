@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import InputError from '@/components/InputError.vue';
+import InputLabel from '@/components/InputLabel.vue';
+import PrimaryButton from '@/components/PrimaryButton.vue';
+import TextInput from '@/components/TextInput.vue';
+import { useForm } from '@/helpers/useForm';
+import { useAuthStore } from '@/stores';
+import { User } from '@/types/user.type';
 
 defineProps<{
     mustVerifyEmail?: Boolean;
     status?: String;
 }>();
 
-const user = usePage().props.auth.user;
+const user = useAuthStore().user as User
 
 const form = useForm({
     name: user.name,
@@ -28,7 +30,7 @@ const form = useForm({
             </p>
         </header>
 
-        <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
+        <form @submit.prevent="form.post(route('profile.update'))" class="mt-6 space-y-6">
             <div>
                 <InputLabel for="name" value="Name" />
 
@@ -64,10 +66,10 @@ const form = useForm({
                 <p class="text-sm mt-2 text-gray-800">
                     Your email address is unverified.
                     <Link
-                        :href="route('verification.send')"
+                        :to="route('verification.send')"
                         method="post"
                         as="button"
-                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                     >
                         Click here to re-send the verification email.
                     </Link>
