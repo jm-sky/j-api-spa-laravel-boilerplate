@@ -4,7 +4,6 @@ namespace DevMadeIt\Boiler;
 
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Stringable;
 use Illuminate\Support\Facades\File;
 use DevMadeIt\Boiler\ModelSchemaCollection;
@@ -19,6 +18,10 @@ class TypescriptGenerator
     protected bool $genInterface = true;
     protected bool $genModel = true;
     protected string $interfacePrefix = "I";
+    protected string $interfaceFileSuffix = "model";
+    protected string $modelFileSuffix = "model";
+
+    protected array $files = [];
 
     public function __construct(
         protected string $model,
@@ -35,34 +38,52 @@ class TypescriptGenerator
 
     public function run()
     {
-        $content = collect([]);
+        if ($this->genInterface) {
+            $this->generateInterface();
+        }
 
-        if ($this->genInterface) $content->push($this->generateInterface());
-        if ($this->genModel) $content->push($this->generateModel());
-
-        $this->content = $content->join("\n\n");
+        if ($this->genModel) {
+            $this->generateModel();
+        }
 
         $this->save();
     }
 
     protected function save(): void
     {
-        $model = Str::of($this->model)->camel()->toString();
-        $filename = "{$model}.draft.ts";
-        $path = "{$this->modelsPath}/{$filename}";
+        foreach ($this->files as $filename => $elements) {
 
-        if (!File::isDirectory(base_path($this->modelsPath))) {
-            File::makeDirectory(base_path($this->modelsPath));
+            $pathinfo = pathinfo(base_path($filename));
+
+
+            if (!File::isDirectory($pathinfo['dirname'])) {
+                File::makeDirectory($pathinfo['dirname']);
+            }
+
+            $content = [];
+
+            if (sizeof($elements['imports'])) {
+                foreach ($elements['imports'] as $path => $types) {
+                    $types = implode(', ', $types);
+                    $content[] = "import { $types } from '{$path}';";
+                }
+
+                $content[] = "";
+            }
+
+            $content[] = implode("\n", $elements['parts']);
+
+            $this->command->info("- writing: {$filename}");
+
+            File::put(base_path($filename), implode("\n", $content));
         }
-
-        $this->command->info("- writing: {$path}");
-
-        File::put(base_path($path), $this->content);
     }
 
-    protected function generateInterface(): string
+    protected function generateInterface(): void
     {
-        $imports = collect([]);
+        $filename = $this->getInterfaceFilenamePath();
+        $imports = $this->files[$filename]['imports'] ?? [];
+
         $attrs = collect([]);
 
         $this->columns->each(function (ColumnSchema $column) use (&$attrs, &$imports) {
@@ -76,13 +97,47 @@ class TypescriptGenerator
         });
 
         $content = collect([]);
-        if ($imports->count()) $content->push($imports->join("\n"), "");
         $content->push("export interface {$this->getInterfaceName($this->model)} {");
         $content->push($attrs->map(fn ($line) => "{$this->indent}{$line}")->join("\n"));
         $content->push("}");
         $content->push("");
 
-        return $content->join("\n");
+        $this->files[$filename] ??= [];
+        $this->files[$filename]['imports'] = $imports;
+        $this->files[$filename]['parts'] ??= [];
+        $this->files[$filename]['parts'][] = $content->join("\n");
+    }
+
+    protected function getInterfaceFilename(string $name): string
+    {
+        $model = Str::of($name)->camel()->toString();
+        $filename = "{$model}.{$this->interfaceFileSuffix}.ts";
+
+        return $filename;
+    }
+
+    protected function getInterfaceFilenamePath(): string
+    {
+        $filename = $this->getInterfaceFilename($this->model);
+        $path = "{$this->interfacePath}/{$filename}";
+
+        return $path;
+    }
+
+    protected function getModelFilename(string $model): string
+    {
+        $model = Str::of($model)->camel()->toString();
+        $filename = "{$model}.{$this->modelFileSuffix}.ts";
+
+        return $filename;
+    }
+
+    protected function getModelFilenamePath(): string
+    {
+        $filename = $this->getModelFilename($this->model);
+        $path = "{$this->modelsPath}/{$filename}";
+
+        return $path;
     }
 
     protected function getInterfaceLine(ColumnSchema $column): string
@@ -94,16 +149,19 @@ class TypescriptGenerator
         return "{$name}{$nullable}: $type";
     }
 
-    protected function getInterfaceRelation(ColumnSchema $column, Collection &$imports): string
+    protected function getInterfaceRelation(ColumnSchema $column, array &$imports): string
     {
         $nullable = $column->is_nullable ? '?' : '';
         $relation = Str::of($column->name)->whenEndsWith('_id', fn (Stringable $string) => $string->before('_id'))->singular()->camel()->toString();
         $relationClass = Str::of($column->referenced_table_name)->singular()->studly()->toString();
 
-        $relationFilename = Str::camel($relationClass);
-        $imports->push("import { {$this->getInterfaceName($relationClass)} } from './{$relationFilename}.draft'");
+        $relationFilename = $this->getInterfaceFilename(Str::camel($relationClass));
+        $interface = $this->getInterfaceName($relationClass);
 
-        return "{$relation}{$nullable}: {$this->getInterfaceName($relationClass)}";
+        $imports["./{$relationFilename}"] ??= [];
+        $imports["./{$relationFilename}"][$interface] = $interface;
+
+        return "{$relation}{$nullable}: {$interface}";
     }
 
     protected function getInterfaceName(string $model): string
@@ -112,9 +170,11 @@ class TypescriptGenerator
     }
 
 
-    protected function generateModel(): string
+    protected function generateModel(): void
     {
-        $imports = collect([]);
+        $filename = $this->getModelFilenamePath();
+        $imports = $this->files[$filename]['imports'] ?? [];
+
         $attrs = collect([]);
 
         $this->columns->each(function (ColumnSchema $column) use (&$attrs, &$imports) {
@@ -134,7 +194,6 @@ class TypescriptGenerator
         });
 
         $content = collect([]);
-        if ($imports->count()) $content->push($imports->join("\n"), "");
         $content->push("export class {$this->getModelName($this->model)} {");
         $content->push($attrs->map(fn ($line) => "{$this->indent}{$line}")->join("\n"));
         $content->push("");
@@ -144,7 +203,10 @@ class TypescriptGenerator
         $content->push("}");
         $content->push("");
 
-        return $content->join("\n");
+        $this->files[$filename] ??= [];
+        $this->files[$filename]['imports'] = $imports;
+        $this->files[$filename]['parts'] ??= [];
+        $this->files[$filename]['parts'][] = $content->join("\n");
     }
 
     protected function getModelLine(ColumnSchema $column): string
@@ -156,14 +218,15 @@ class TypescriptGenerator
         return "declare {$name}{$nullable}: $type";
     }
 
-    protected function getModelRelation(ColumnSchema $column, Collection &$imports): string
+    protected function getModelRelation(ColumnSchema $column, array &$imports): string
     {
         $nullable = $column->is_nullable ? '?' : '';
         $relation = Str::of($column->name)->whenEndsWith('_id', fn (Stringable $string) => $string->before('_id'))->singular()->camel()->toString();
         $relationClass = Str::of($column->referenced_table_name)->singular()->studly()->toString();
 
-        $relationFilename = Str::camel($relationClass);
-        $imports->push("import { {$this->getModelName($relationClass)} } from './{$relationFilename}.draft'");
+        $relationFilename = $this->getModelFilename(Str::camel($relationClass));
+        $imports["./{$relationFilename}"] ??= [];
+        $imports["./{$relationFilename}"][$this->getModelName($relationClass)] = $this->getModelName($relationClass);
 
         return "declare {$relation}{$nullable}: {$this->getModelName($relationClass)}";
     }
