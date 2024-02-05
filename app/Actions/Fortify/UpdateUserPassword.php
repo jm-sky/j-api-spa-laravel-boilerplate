@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Actions\Fortify;
+namespace DevMadeIt\Actions\Fortify;
 
-use App\Models\User;
+use DevMadeIt\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\UpdatesUserPasswords;

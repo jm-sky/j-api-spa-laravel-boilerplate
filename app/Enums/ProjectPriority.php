@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Enums;
+namespace DevMadeIt\Enums;
 
-use App\Traits\EnumValuesGetter;
+use DevMadeIt\Traits\EnumValuesGetter;
 
 enum ProjectPriority: string
 {

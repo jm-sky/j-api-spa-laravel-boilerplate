@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Auth\SocialiteAuthController;
-use App\Http\Controllers\ProfileController;
+use DevMadeIt\Http\Controllers\Auth\SocialiteAuthController;
+use DevMadeIt\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

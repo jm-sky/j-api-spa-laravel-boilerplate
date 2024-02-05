@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory()->create([
+        \DevMadeIt\Models\User::factory()->create([
             'name' => 'Test User',
             'email' => env('DEFAULT_USER_EMAIL'),
             'password' => Hash::make(env('DEFAULT_USER_PASSWORD', 'password')),
