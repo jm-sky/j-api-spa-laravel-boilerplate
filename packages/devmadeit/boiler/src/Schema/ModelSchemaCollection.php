@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DevMadeIt\Boiler;
+namespace DevMadeIt\Boiler\Schema;
 
-use DevMadeIt\Boiler\ColumnSchema;
+use DevMadeIt\Boiler\Schema\ColumnSchema;
 use Illuminate\Support\Collection;
 
 class ModelSchemaCollection extends Collection

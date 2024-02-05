@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use DevMadeIt\Boiler\ModelSchemaCollection;
+use DevMadeIt\Boiler\Schema\ModelSchemaCollection;
 use DevMadeIt\Boiler\Exceptions\BoilerException;
 use DevMadeIt\Boiler\Generator;
 

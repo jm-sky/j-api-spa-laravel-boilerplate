@@ -6,9 +6,11 @@ namespace DevMadeIt\Boiler;
 
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
-use DevMadeIt\Boiler\SchemaLoader;
-use DevMadeIt\Boiler\ModelSchemaCollection;
+use DevMadeIt\Boiler\BoilerGenerator;
+use DevMadeIt\Boiler\Schema\SchemaLoader;
+use DevMadeIt\Boiler\BoilerServiceProvider;
 use DevMadeIt\Boiler\Exceptions\BoilerException;
+use DevMadeIt\Boiler\Schema\ModelSchemaCollection;
 use DevMadeIt\Boiler\Generators\TypescriptGenerator;
 
 class Generator
@@ -27,6 +29,10 @@ class Generator
         protected Command $command,
     )
     {
+        // BoilerServiceProvider::forceConfigSet();
+
+        (new BoilerGenerator('\\App\\Models\\Project'))->loadSchema();
+
         $this->modelsNamespace = config('boiler.models_namespace', $this->modelsNamespace);
         $this->generateTypescript = config('boiler.ts.generate', $this->generateTypescript);
     }

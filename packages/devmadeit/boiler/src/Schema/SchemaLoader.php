@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace DevMadeIt\Boiler;
+namespace DevMadeIt\Boiler\Schema;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use DevMadeIt\Boiler\ColumnSchema;
-use DevMadeIt\Boiler\ModelSchemaCollection;
+use DevMadeIt\Boiler\Schema\ColumnSchema;
+use DevMadeIt\Boiler\Schema\ModelSchemaCollection;
 use DevMadeIt\Boiler\Exceptions\BoilerException;
 
 class SchemaLoader

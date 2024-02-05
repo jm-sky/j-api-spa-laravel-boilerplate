@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DevMadeIt\Boiler;
+namespace DevMadeIt\Boiler\Schema;
 
 /**
  * @property string $name

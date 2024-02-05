@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace DevMadeIt\Console\Commands;
 
-use Illuminate\Console\Command;
-use DevMadeIt\Boiler\ModelSchemaCollection;
-use DevMadeIt\Boiler\Exceptions\BoilerException;
 use DevMadeIt\Boiler\Generator;
+use Illuminate\Console\Command;
+use DevMadeIt\Boiler\Exceptions\BoilerException;
+use DevMadeIt\Boiler\Schema\ModelSchemaCollection;
 
 class BoilCommand extends Command
 {
@@ -20,7 +20,7 @@ class BoilCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'boil:all {model}';
+    protected $signature = 'boiler:all {model}';
 
     /**
      * The console command description.

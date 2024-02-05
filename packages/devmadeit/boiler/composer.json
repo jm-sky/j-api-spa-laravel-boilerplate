@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "doctrine/dbal": "^4.0",
+        "doctrine/dbal": "4.1.x-dev",
         "illuminate/support": "^11.0@dev",
         "illuminate/console": "^11.0@dev",
         "spatie/laravel-package-tools": "dev-main"
@@ -27,6 +27,7 @@
     "extra": {
         "laravel": {
             "providers": [
+                "DevMadeIt\\Boiler\\BoilerServiceProvider"
             ]
         }
     },

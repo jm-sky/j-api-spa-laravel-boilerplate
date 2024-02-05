@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a25486d039decd68e037a9093f5fcdcb",
+    "content-hash": "c822086ea065ae969b860acfdbe90e6a",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -3692,12 +3692,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "fae4a14ade0bf9652b056de8403a48240e36c8ff"
+                "reference": "1625a12455c40d922b3e73a755420f0cd5beaa69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/fae4a14ade0bf9652b056de8403a48240e36c8ff",
-                "reference": "fae4a14ade0bf9652b056de8403a48240e36c8ff",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1625a12455c40d922b3e73a755420f0cd5beaa69",
+                "reference": "1625a12455c40d922b3e73a755420f0cd5beaa69",
                 "shasum": ""
             },
             "require": {
@@ -3747,7 +3747,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-03T14:33:55+00:00"
+            "time": "2024-02-05T09:11:46+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -4827,6 +4827,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "doctrine/dbal": 20,
         "illuminate/support": 20,
         "illuminate/console": 20,
         "spatie/laravel-package-tools": 20

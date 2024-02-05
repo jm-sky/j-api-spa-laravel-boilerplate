@@ -8,7 +8,8 @@ use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Stringable;
 use Illuminate\Support\Facades\File;
-use DevMadeIt\Boiler\ModelSchemaCollection;
+use DevMadeIt\Boiler\Schema\ColumnSchema;
+use DevMadeIt\Boiler\Schema\ModelSchemaCollection;
 
 class TypescriptGenerator
 {
