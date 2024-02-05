@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DevMadeIt\Boiler;
 
 use DevMadeIt\Boiler\ColumnSchema;

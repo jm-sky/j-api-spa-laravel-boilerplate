@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DevMadeIt\Boiler;
 
 use Illuminate\Support\Str;

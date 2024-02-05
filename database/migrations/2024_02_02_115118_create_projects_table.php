@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Enums\ProjectPriority;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->date('startDate')->nullable();
             $table->date('endDate')->nullable();
+            $table->boolean('archived')->default(false);
+            $table->enum('priority', ProjectPriority::values())->default(ProjectPriority::Medium->value);
             $table->timestamps();
         });
     }
