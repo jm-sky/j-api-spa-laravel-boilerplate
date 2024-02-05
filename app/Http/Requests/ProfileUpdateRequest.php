@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DevMadeIt\Http\Requests;
+namespace App\Http\Requests;
 
-use DevMadeIt\Models\User;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

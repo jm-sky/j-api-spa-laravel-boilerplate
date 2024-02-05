@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DevMadeIt\Enums;
+namespace App\Enums;
 
 enum SocialiteDriver: string
 {

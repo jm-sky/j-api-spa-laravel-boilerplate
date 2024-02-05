@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DevMadeIt\Models;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;

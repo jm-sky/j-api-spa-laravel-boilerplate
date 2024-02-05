@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace DevMadeIt\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use DevMadeIt\Http\Controllers\Controller;
-use DevMadeIt\Models\User;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

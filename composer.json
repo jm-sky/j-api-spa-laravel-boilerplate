@@ -29,7 +29,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DevMadeIt\\": "app/",
+            "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "DevMadeIt\\Boiler\\": "packages/devmadeit/boiler/src/"

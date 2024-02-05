@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DevMadeIt\Http\Middleware;
+namespace App\Http\Middleware;
 
 use Illuminate\Routing\Middleware\ValidateSignature as Middleware;
 

@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace DevMadeIt\Boiler;
 
 use Illuminate\Support\Str;
+use Illuminate\Console\Command;
 use DevMadeIt\Boiler\SchemaLoader;
 use DevMadeIt\Boiler\ModelSchemaCollection;
 use DevMadeIt\Boiler\Exceptions\BoilerException;
-use Illuminate\Console\Command;
+use DevMadeIt\Boiler\Generators\TypescriptGenerator;
 
 class Generator
 {

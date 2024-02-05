@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DevMadeIt\Boiler;
+namespace DevMadeIt\Boiler\Generators;
 
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;

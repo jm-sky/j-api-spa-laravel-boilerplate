@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DevMadeIt\Http\Middleware;
+namespace App\Http\Middleware;
 
-use DevMadeIt\Providers\RouteServiceProvider;
+use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

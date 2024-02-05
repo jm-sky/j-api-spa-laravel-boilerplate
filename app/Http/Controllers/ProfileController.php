@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DevMadeIt\Http\Controllers;
+namespace App\Http\Controllers;
 
-use DevMadeIt\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

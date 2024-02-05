@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DevMadeIt\Traits;
+namespace App\Traits;
 
 trait FromArray
 {

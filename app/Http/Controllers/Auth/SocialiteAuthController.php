@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace DevMadeIt\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use DevMadeIt\Enums\SocialiteDriver;
-use DevMadeIt\Http\Controllers\Controller;
-use DevMadeIt\Models\User;
-use DevMadeIt\Providers\RouteServiceProvider;
+use App\Enums\SocialiteDriver;
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
