@@ -240,12 +240,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jm-sky/laravel-model-boiler.git",
-                "reference": "2f18549b4e2946050de9e7d1af5b1a797519d1db"
+                "reference": "42f9b745a123b6bc4228b6af279f87b2be9ae891"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jm-sky/laravel-model-boiler/zipball/2f18549b4e2946050de9e7d1af5b1a797519d1db",
-                "reference": "2f18549b4e2946050de9e7d1af5b1a797519d1db",
+                "url": "https://api.github.com/repos/jm-sky/laravel-model-boiler/zipball/42f9b745a123b6bc4228b6af279f87b2be9ae891",
+                "reference": "42f9b745a123b6bc4228b6af279f87b2be9ae891",
                 "shasum": ""
             },
             "require": {
@@ -289,7 +289,7 @@
                 "issues": "https://github.com/jm-sky/laravel-model-boiler/issues",
                 "source": "https://github.com/jm-sky/laravel-model-boiler/tree/main"
             },
-            "time": "2024-02-05T15:22:48+00:00"
+            "time": "2024-02-06T14:04:16+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -10801,7 +10801,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "dev-made-it/laravel-model-boiler": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
