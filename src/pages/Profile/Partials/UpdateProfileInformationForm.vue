@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import InputError from "@/components/InputError.vue";
 import InputLabel from "@/components/InputLabel.vue";
-import PrimaryButton from "@/components/PrimaryButton.vue";
 import TextInput from "@/components/TextInput.vue";
+import { Button } from '@/components/ui/button';
 import { useForm } from "@/helpers/useForm";
 import { RouteMap } from '@/router/routeMap';
 import { useAuthStore } from "@/stores";
@@ -19,6 +19,8 @@ const form = useForm({
   name: user.name,
   email: user.email,
 });
+
+const submit = () => form.patch(RouteMap.API.PROFILE_UPDATE)
 </script>
 
 <template>
@@ -31,13 +33,9 @@ const form = useForm({
       </p>
     </header>
 
-    <form
-      @submit.prevent="form.post(RouteMap.API.PROFILE_UPDATE)"
-      class="mt-6 space-y-6"
-    >
+    <form @submit.prevent="submit" class="mt-6 space-y-6">
       <div>
         <InputLabel for="name" value="Name" />
-
         <TextInput
           id="name"
           type="text"
@@ -47,13 +45,11 @@ const form = useForm({
           autofocus
           autocomplete="name"
         />
-
         <InputError class="mt-2" :message="form.errors.name" />
       </div>
 
       <div>
         <InputLabel for="email" value="Email" />
-
         <TextInput
           id="email"
           type="email"
@@ -62,21 +58,20 @@ const form = useForm({
           required
           autocomplete="username"
         />
-
         <InputError class="mt-2" :message="form.errors.email" />
       </div>
 
-      <div v-if="mustVerifyEmail && user.emailVerifiedAt === null">
+      <div v-if="mustVerifyEmail && !user.emailVerifiedAt">
         <p class="text-sm mt-2 text-gray-800">
           Your email address is unverified.
-          <Link
+          <RouterLink
             :to="RouteMap.VERIFICATION_SEND"
             method="post"
             as="button"
             class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
           >
             Click here to re-send the verification email.
-          </Link>
+          </RouterLink>
         </p>
 
         <div
@@ -88,7 +83,7 @@ const form = useForm({
       </div>
 
       <div class="flex items-center gap-4">
-        <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+        <Button :disabled="form.processing" :loading="form.processing">Save</Button>
 
         <Transition
           enter-active-class="transition ease-in-out"

@@ -34,7 +34,7 @@ const routes: RouteRecordRaw[] = [
     name: 'logout',
     component: async () => await import('@/pages/Auth/Logout.vue'),
     meta: {
-      middlewares: [isNotGuest],
+      // middlewares: [isNotGuest],
     },
   },
   {

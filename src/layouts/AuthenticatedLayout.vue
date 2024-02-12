@@ -23,7 +23,7 @@ const showingNavigationDropdown = ref(false);
               <!-- Logo -->
               <div class="shrink-0 flex items-center">
                 <RouterLink :to="RouteMap.HOME">
-                  <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
+                  <ApplicationLogo size="w-10 h-10" class="block h-3 w-auto fill-current text-gray-800" />
                 </RouterLink>
               </div>
 

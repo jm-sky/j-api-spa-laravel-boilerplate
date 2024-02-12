@@ -3,19 +3,12 @@ import { User } from '@/types/user.type'
 import { RemovableRef, useSessionStorage } from '@vueuse/core'
 import axiosInstance from '@/helpers/axiosInstance'
 import { computed } from 'vue'
-
-const DEFAULT_USER: User = {
-  id: '1234-abcd',
-  name: 'John',
-  email: 'john@example.com',
-  verified: true,
-  emailVerifiedAt: '2024-01-01 10:00',
-}
+import { RouteMap } from '@/router/routeMap'
 
 export const useAuthStore = defineStore(
   'authStore',
   () => {
-    const user: RemovableRef<User | undefined> = useSessionStorage('auth:user', DEFAULT_USER)
+    const user: RemovableRef<User | undefined> = useSessionStorage('auth:user', undefined)
     const isAuthenticated = computed<boolean>(() => !!user.value)
 
     const loadUserData = async () => {
@@ -23,10 +16,13 @@ export const useAuthStore = defineStore(
       user.value = data
     }
 
+    const logout = () => axiosInstance.post(RouteMap.API.LOGOUT).finally(() => user.value = null)
+
     return {
       isAuthenticated,
       user,
       loadUserData,
+      logout,
     }
   },
 )

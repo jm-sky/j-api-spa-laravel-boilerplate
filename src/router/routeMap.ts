@@ -17,6 +17,7 @@ export const RouteMap = {
     LOGOUT: '/api/logout',
     REGISTER: '/api/register',
     PROFILE_UPDATE: '/api/profile',
-    VERIFICATION_SEND: '/email/verification-notification',
+    VERIFICATION_SEND: '/api/email/verification-notification',
+    PASSWORD_UPDATE: '/api/reset-password',
   },
 }

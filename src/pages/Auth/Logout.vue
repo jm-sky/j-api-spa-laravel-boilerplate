@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import axiosInstance from '@/helpers/axiosInstance';
 import GuestLayout from "@/layouts/GuestLayout.vue";
 import FaIcon from "@/components/FaIcon.vue";
 import router from '@/router';
 import { RouteMap } from '@/router/routeMap';
 import { onMounted } from 'vue';
+import { useAuthStore } from '@/stores';
 
-onMounted(() => axiosInstance.post(RouteMap.API.LOGOUT).finally(() => router.push(RouteMap.LOGIN)))
+const authStore = useAuthStore()
+
+onMounted(() => authStore.logout().finally(() => router.push(RouteMap.LOGIN)))
 </script>
 
 <template>
