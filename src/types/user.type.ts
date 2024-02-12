@@ -3,5 +3,5 @@ export interface User {
   name: string
   email: string
   verified: boolean
-  email_verified_at?: string
+  emailVerifiedAt?: string
 }

@@ -5,13 +5,16 @@ import InputError from "@/components/InputError.vue";
 import InputLabel from "@/components/InputLabel.vue";
 import TextInput from "@/components/TextInput.vue";
 import { RouteMap } from "@/router/routeMap";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 import { useForm } from "@/helpers/useForm";
 import { Button } from '@/components/ui/button'
 import { DEFAULT_USER_EMAIL, DEFAULT_USER_PASSWORD } from '@/config';
 import { useToast } from 'vue-toast-notification';
+import { useAuthStore } from '@/stores';
 
 const toast = useToast()
+const authStore = useAuthStore()
+const router = useRouter()
 
 defineProps<{
   canResetPassword?: boolean;
@@ -27,7 +30,11 @@ const form = useForm({
 
 const submit = () => {
   form.post(RouteMap.API.LOGIN, {
-    onSuccess: () => form.reset(),
+    onSuccess: async () => {
+      form.reset()
+      await authStore.loadUserData()
+      router.push(RouteMap.HOME)
+    },
     onError: () => toast.error('Could not login'),
   });
 };
@@ -84,7 +91,7 @@ const submit = () => {
         <RouterLink
           v-if="canResetPassword"
           :to="RouteMap.PASSWORD_FORGOT"
-          class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+          class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
         >
           Forgot your password?
         </RouterLink>
@@ -101,7 +108,7 @@ const submit = () => {
         Don't have account?
         <RouterLink
           :to="RouteMap.REGISTER"
-          class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+          class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
         >
           Register
         </RouterLink>

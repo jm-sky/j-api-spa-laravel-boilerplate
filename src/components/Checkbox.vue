@@ -1,29 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { Checkbox } from '@/components/ui/checkbox'
 
-const emit = defineEmits(['update:checked']);
-
-const props = defineProps<{
-    checked: boolean;
-    value?: any;
-}>();
-
-const proxyChecked = computed({
-    get() {
-        return props.checked;
-    },
-
-    set(val) {
-        emit('update:checked', val);
-    },
-});
+const modelValue = defineModel('modelValue')
 </script>
 
 <template>
-    <input
-        type="checkbox"
-        :value="value"
-        v-model="proxyChecked"
-        class="rounded border-gray-300 text-primary-600 shadow-sm focus:ring-primary-500"
-    />
+  <Checkbox v-model="modelValue" />
 </template>

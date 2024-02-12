@@ -10,10 +10,13 @@ export const RouteMap = {
   ACCOUNT: '/account/overview',
   NOT_FOUND: '/404',
   PROFILE_EDIT: '/profile/edit',
+  VERIFICATION_SEND: '/verification-send',
 
   API: {
     LOGIN: '/api/login',
     LOGOUT: '/api/logout',
     REGISTER: '/api/register',
+    PROFILE_UPDATE: '/api/profile',
+    VERIFICATION_SEND: '/email/verification-notification',
   },
 }

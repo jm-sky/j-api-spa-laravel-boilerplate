@@ -18,7 +18,7 @@ const routes: RouteRecordRaw[] = [
     name: 'dashboard',
     component: async () => await import('@/pages/Dashboard.vue'),
     meta: {
-      // middlewares: [isLogged],
+      middlewares: [isLogged],
     },
   },
   {
@@ -26,7 +26,7 @@ const routes: RouteRecordRaw[] = [
     name: 'login',
     component: async () => await import('@/pages/Auth/Login.vue'),
     meta: {
-      // middlewares: [isNotGuest],
+      middlewares: [isNotGuest],
     },
   },
   {
@@ -34,13 +34,21 @@ const routes: RouteRecordRaw[] = [
     name: 'logout',
     component: async () => await import('@/pages/Auth/Logout.vue'),
     meta: {
-      // middlewares: [isNotGuest],
+      middlewares: [isNotGuest],
     },
   },
   {
     path: RouteMap.REGISTER,
     name: 'register',
     component: async () => await import('@/pages/Auth/Register.vue'),
+    meta: {
+      middlewares: [isNotGuest],
+    },
+  },
+  {
+    path: RouteMap.PROFILE_EDIT,
+    name: 'profileEdit',
+    component: async () => await import('@/pages/Profile/Edit.vue'),
     meta: {
       // middlewares: [isNotGuest],
     },
