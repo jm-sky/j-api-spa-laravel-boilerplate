@@ -10,7 +10,7 @@ This repo was made with `curl -s "https://laravel.build/example-app?with=mysql,r
 - `composer cs` - lint PHP code style with Pint
 - `composer csf` - fix PHP code style with Pint 
 - `composer stan` - analyze PHP code with PHPStan
-
+- `php artisan boil:all project` - generate TypeScript models for Project model based on database schema
 
 ## Packages
 
@@ -45,3 +45,6 @@ This repo was made with `curl -s "https://laravel.build/example-app?with=mysql,r
 - [ ] [intervention/validation](https://github.com/Intervention/validation) - <img src="https://img.shields.io/github/stars/Intervention/validation?style=flat"> - The package adds rules to validate data like IBAN, BIC, ISBN, creditcard numbers and more.
 - [ ] [pacerit/laravel-polish-validation-rules](https://github.com/pacerit/laravel-polish-validation-rules) - <img src="https://img.shields.io/github/stars/pacerit/laravel-polish-validation-rules?style=flat"> - Simple Polish Validation rules with PESEL, NIP, REGON etc.
 
+
+## Front-end - Vue
+- (shadcn-vue)[https://www.shadcn-vue.com/]

@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Auth\SocialiteAuthController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\SocialiteAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::controller(SocialiteAuthController::class)->group(function (): void {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
-        return $request->user();
+        return new UserResource($request->user());
     });
 
     Route::controller(ProfileController::class)->group(function (): void {
@@ -32,3 +33,5 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/profile', 'destroy')->name('profile.destroy');
     });
 });
+
+require __DIR__.'/auth.php';
