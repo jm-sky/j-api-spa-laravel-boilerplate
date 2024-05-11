@@ -1,8 +1,10 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
+**Work in progress**
 
 # j-API-SPA Laravel boilerplate
-Laravel is a web application framework with expressive, elegant syntax.
+Laravel is a web application framework with expressive, elegant syntax. In this repo I've added Vue with Vite as Single Page Application (SPA) front-end. 
+
+Vue utilizes Vue-Router, i18n, shadcn-vue, FontAwesome, custom `useForm` composable... 
 
 This repo was made with `curl -s "https://laravel.build/example-app?with=mysql,redis,mailpit" | bash` command from [Laravel Docs](https://laravel.com/docs/10.x#getting-started-on-windows)
 
